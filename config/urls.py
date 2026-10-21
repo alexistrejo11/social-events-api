@@ -20,7 +20,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from common.view import task_status, revoke_task, celery_health, test
+from common.view import task_status, revoke_task, celery_health, test, health
 
 urlpatterns = [
     # Admin
@@ -40,7 +40,8 @@ urlpatterns = [
         SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),
-    # Testing & Monitoring
+    # Health & Monitoring
+    path("health/", health, name="health"),
     path("api/test/", test, name="test"),
     path("api/task-status/<str:task_id>/", task_status, name="task-status"),
     path("api/task-revoke/<str:task_id>/", revoke_task, name="task-revoke"),

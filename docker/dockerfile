@@ -43,12 +43,14 @@ RUN chmod +x /app/scripts/*.sh && \
     chown -R django:django /app
 
 
+ARG PORT=8087
+
 ENV PYTHONUNBUFFERED=1 \
    DJANGO_SETTINGS_MODULE=config.settings.production \
-   PORT=8000
+   PORT=${PORT}
 
 USER django
 
-EXPOSE 8000
+EXPOSE ${PORT}
 
 ENTRYPOINT ["/app/scripts/entrypoint.sh"]

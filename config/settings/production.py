@@ -47,9 +47,10 @@ CACHES = {
     }
 }
 
-# Celery broker for production
-CELERY_BROKER_URL = f"redis://{env('REDIS_HOST', default='redis')}:{env('REDIS_PORT', default='6379')}/0"
-CELERY_RESULT_BACKEND = f"redis://{env('REDIS_HOST', default='redis')}:{env('REDIS_PORT', default='6379')}/1"
+# Celery broker/result backend for production.
+# Prefer explicit URLs from env (they support auth); fall back to REDIS_URL.
+CELERY_BROKER_URL = env("CELERY_BROKER_URL", default=env("REDIS_URL"))
+CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND", default=env("REDIS_URL"))
 
 # Email backend for production (use SMTP)
 EMAIL_BACKEND = env(

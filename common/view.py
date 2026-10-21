@@ -16,6 +16,13 @@ logger = logging.getLogger(__name__)
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
+def health(request):
+    """Lightweight liveness probe used by Docker and Nginx."""
+    return Response({"status": "healthy"})
+
+
+@api_view(["GET"])
 def test(request, format=None):
     """Test endpoint with async task execution."""
     logger.info("Test API endpoint hit!")

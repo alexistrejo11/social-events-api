@@ -69,7 +69,7 @@ services:
       CELERY_BROKER_URL: redis://redis:6379/0
       POPULATE_DUMMY_DATA: ${POPULATE_DB:-false}
     expose:
-      - "8000"
+      - "${PORT:-8087}"
     volumes:
       - ..:/app
       - logs_volume:/app/logs
@@ -88,6 +88,7 @@ services:
       - web
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME:-localhost}
+      PORT: ${PORT:-8087}
     ports:
       - "80:80"
       - "443:443"
